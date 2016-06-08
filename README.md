@@ -1,6 +1,6 @@
 # Multivariate Polynomial Multiplication GPU
 
-Code for the multivariate polynomial multiplication on GPU
+Source code, tests and results for the multivariate polynomial multiplication on GPU
 
 Paper:
 
