@@ -185,7 +185,7 @@ multivariatePolMulTruncateCUDA(unsigned int *exp_C, unsigned long long *exp_keys
 	    while (tbx < nA) {
 		    Acs[tx] = coeff_A[tbx];
 		    Bcs[ty] = coeff_B[tby];
-#pragma unroll
+//#pragma unroll
 		    for (int k = 0; k < NVARS; ++k) {
 			    Aes[tx + k * BLOCK_SIZE_X] = exp_A[tbx + k * nA]; 
 			    Bes[ty + k * BLOCK_SIZE_Y] = exp_B[tby + k * nB];
@@ -199,7 +199,7 @@ multivariatePolMulTruncateCUDA(unsigned int *exp_C, unsigned long long *exp_keys
 		    // each thread writes one element
 		    c = nA * tby + tbx;
 		    coeff_C[c] = Ccoeff;
-#pragma unroll
+//#pragma unroll
 		    for (int k = 0; k < NVARS; ++k) 
 		    {
 			Cexp[k] = Aes[tx + k * BLOCK_SIZE_X] + Bes[ty + k * BLOCK_SIZE_Y];
@@ -234,7 +234,7 @@ getExponentsFromKeysCUDA(uint8_t  *exp_C, unsigned long long *exp_keys, unsigned
 	unsigned long long key = 0, kd = 0;
 	while (tbx < nC) {
 		key = exp_keys[tbx];
-#pragma unroll
+//#pragma unroll
 		for (int k = NVARS - 1; k >= 0; k--) {
 		  	kd = key/MAX_EXP;
 			exp_C[tbx + k * nC] = key - kd * MAX_EXP; 
