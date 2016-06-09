@@ -135,40 +135,9 @@ build: multpol
 multiplication.o: Multiplication.cu
 	$(NVCC) $(NVCCFLAGS) $(EXTRA_NVCCFLAGS) $(GENCODE_FLAGS) $(INCLUDES) -o $@ -c $<
 
-#Twiss.o: Twiss.cpp
-#	$(GCC) $(CCFLAGS) $(EXTRA_CCFLAGS) $(INCLUDES) -o $@ -c $<
-
-#MapBeamLineCUDA.o: MapBeamLineCUDA.cpp
-#	$(GCC) $(CCFLAGS) $(EXTRA_CCFLAGS) $(INCLUDES) -o $@ -c $<
-
-#MapBeamLine_wrapper.o: MapBeamLine_wrapper.cpp
-#	$(GCC) $(CCFLAGS) $(EXTRA_CCFLAGS) $(INCLUDES) -I/usr/include/python2.7 -I/usr/include/python2.6 -o $@ -c $<
-
-#mapbeamline.so: MultPolCUDA.o Twiss.o MapBeamLineCUDA.o MapBeamLine_wrapper.o
-#	$(GCC) -shared -o $@ $+  ../libs/boost_1_53_0/libboost_python.so.1.53.0 $(LDFLAGS) $(EXTRA_LDFLAGS)  
-#	cp $@ ../doc/FFSexample
-
 multpol: multiplication.o
 	 $(NVCC) $(NVCCFLAGS) -o $@ $^ $(LDLAGS)
 
 clean: 
 	rm -rf multiplication.o
 	rm -rf multpol
-
-#clean:
-#	rm -rf Twiss.o MultPol.o MapBeamLineCUDA.o mapbeamline.so 
-
-#all: map
-
-#map: Twiss.o MapBeamLine.o MapBeamLine_wrapper.o
-#        g++ -shared -o mapbeamline.so Twiss.o MapBeamLine.o MapBeamLine_wrapper.o ../libs/boost_1_53_0/libboost_python.so.1.53.0 -lgomp
-#        cp mapbeamline.so ../doc/FFSexample
-
-#Twiss.o: Twiss.cpp
-#        g++ -O2 -fPIC -c Twiss.cpp --std=c++0x  -fopenmp
-
-#MapBeamLine.o: MapBeamLine.cpp
-#        g++ -O2 -fPIC -c MapBeamLine.cpp --std=c++0x  -fopenmp
-
-#MapBeamLine_wrapper.o: MapBeamLine_wrapper.cpp
-#        g++ -O2 -fPIC -c MapBeamLine_wrapper.cpp --std=c++0x -fopenmp -I/usr/include/python2.7
