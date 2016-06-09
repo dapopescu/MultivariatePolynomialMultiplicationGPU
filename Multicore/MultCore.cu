@@ -83,7 +83,7 @@ int polynomMultiply(int argc, char **argv, unsigned int &dimA, unsigned int &dim
     unsigned long long *e_keys_C;
     unsigned long long *final_keys_C;
 
-    // Allocate host polynom C
+    // Allocate host polynomial C
     unsigned int dimC = dimA * dimB;
     unsigned int size_C = dimA * dimB * nvars;
     unsigned int mem_size_exp_C = size_C * sizeof(unsigned int);
@@ -185,8 +185,8 @@ int main(int argc, char **argv)
     if (checkCmdLineFlag(argc, (const char **)argv, "help") ||
         checkCmdLineFlag(argc, (const char **)argv, "?"))
     {
-        printf("Usage -nA=NumberOfTermsA (Number of terms of polynom A)\n");
-        printf("      -nB=NumberOfTermsB (Number of terms of polynom B)\n");
+        printf("Usage -nA=NumberOfTermsA (Number of terms of polynomial A)\n");
+        printf("      -nB=NumberOfTermsB (Number of terms of polynomial B)\n");
         printf("      -x=vars (Number of variables)\n");
 	printf("      -o=order (Order of polynoms).\n");
 
@@ -194,20 +194,20 @@ int main(int argc, char **argv)
     }
 
     unsigned int dimA, dimB; 
-    // number of terms of polynom A
+    // number of terms of polynomial A
     if (checkCmdLineFlag(argc, (const char **)argv, "nA"))
     {
         dimA = getCmdLineArgumentInt(argc, (const char **)argv, "nA");
     }
 
-    // number of terms of polynom B
+    // number of terms of polynomial B
     if (checkCmdLineFlag(argc, (const char **)argv, "nB"))
     {
         dimB = getCmdLineArgumentInt(argc, (const char **)argv, "nB");
     }
 
     unsigned int order = 6;
-    // Order of polynoms
+    // Order of polynomials
     if (checkCmdLineFlag(argc, (const char **)argv, "o"))
     {
         order = getCmdLineArgumentInt(argc, (const char **)argv, "o");
@@ -236,7 +236,7 @@ int main(int argc, char **argv)
        fB = fopen(value, "r"); 
     }
 
-    printf("PolynomA(%d), PolynomB(%d), Order = %d, Number of Variables = %d\n", dimA, dimB, order, nvars);
+    printf("PolynomialA(%d), PolynomialB(%d), Order = %d, Number of Variables = %d\n", dimA, dimB, order, nvars);
     int polynom_result = polynomMultiply(argc, argv, dimA, dimB, order, nvars, fA, fB);
 
     exit(polynom_result);

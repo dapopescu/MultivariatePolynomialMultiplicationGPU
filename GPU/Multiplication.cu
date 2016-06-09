@@ -78,12 +78,12 @@ multivariateMulArbitrarySizedPolsCUDA(uint8_t *exp_C, unsigned long long *exp_ke
     int offsety = BLOCK_SIZE_Y * gridDim.y;
 	
     // Declaration of the shared memory array As used to
-    // store the sub-polynom of A
+    // store the sub-polynomial of A
     __shared__ uint8_t  Aes[BLOCK_SIZE_X * NVARS];
     __shared__ double Acs[BLOCK_SIZE_X];
 
     // Declaration of the shared memory array Bs used to
-    // store the sub-polynom of B
+    // store the sub-polynomial of B
     __shared__ uint8_t  Bes[BLOCK_SIZE_Y * NVARS];
     __shared__ double Bcs[BLOCK_SIZE_Y];
 
@@ -111,7 +111,7 @@ multivariateMulArbitrarySizedPolsCUDA(uint8_t *exp_C, unsigned long long *exp_ke
 		    // that is computed by the thread
 		    Ccoeff = Acs[tx] * Bcs[ty];
 		    ekey = 0;
-		    // Write the block sub-polynom to device memory;
+		    // Write the block sub-polynomial to device memory;
 		    // each thread writes one element
 		    c = nA * tby + tbx;
 		    coeff_C[c] = Ccoeff;
@@ -159,12 +159,12 @@ multivariatePolMulTruncateCUDA(unsigned int *exp_C, unsigned long long *exp_keys
     int offsety = BLOCK_SIZE_Y * gridDim.y;
 	
     // Declaration of the shared memory array As used to
-    // store the sub-polynom of A
+    // store the sub-polynomial of A
     __shared__ unsigned int Aes[BLOCK_SIZE_X * NVARS];
     __shared__ double Acs[BLOCK_SIZE_X];
 
     // Declaration of the shared memory array Bs used to
-    // store the sub-polynom of B
+    // store the sub-polynomial of B
     __shared__ unsigned int Bes[BLOCK_SIZE_Y * NVARS];
     __shared__ double Bcs[BLOCK_SIZE_Y];
 
@@ -195,7 +195,7 @@ multivariatePolMulTruncateCUDA(unsigned int *exp_C, unsigned long long *exp_keys
 		    Ccoeff = Acs[tx] * Bcs[ty];
 		    ekey = 0;
 		    sum = 0;
-		    // Write the block sub-polynom to device memory;
+		    // Write the block sub-polynomial to device memory;
 		    // each thread writes one element
 		    c = nA * tby + tbx;
 		    coeff_C[c] = Ccoeff;
@@ -270,7 +270,7 @@ int polynomMultiply(int argc, char **argv, int block_size, unsigned int &dimA, u
     cudaEvent_t stop;
     checkCuda(cudaEventCreate(&stop));
 
-    // Allocate host memory for polynoms A and B
+    // Allocate host memory for polynomials A and B
     unsigned int size_A = dimA * nvars;
     unsigned int mem_size_exp_A = sizeof(uint8_t) * size_A;
     unsigned int mem_size_coeff_A = sizeof(double) * dimA;
@@ -297,7 +297,7 @@ int polynomMultiply(int argc, char **argv, int block_size, unsigned int &dimA, u
     unsigned long long *e_keys_C;
     unsigned long long *final_keys_C;
 
-    // Allocate host polynom C
+    // Allocate host polynomial C
     unsigned int dimC = dimA * dimB;
     unsigned int size_C = dimA * dimB * nvars;
     unsigned int mem_size_exp_C = size_C * sizeof(uint8_t);
@@ -530,8 +530,8 @@ int main(int argc, char **argv)
         checkCmdLineFlag(argc, (const char **)argv, "?"))
     {
         printf("Usage -device=n (n >= 0 for deviceID)\n");
-        printf("      -nA=NumberOfTermsA (Number of terms of polynom A)\n");
-        printf("      -nB=NumberOfTermsB (Number of terms of polynom B)\n");
+        printf("      -nA=NumberOfTermsA (Number of terms of polynomial A)\n");
+        printf("      -nB=NumberOfTermsB (Number of terms of polynomial B)\n");
         printf("      -x=vars (Number of variables)\n");
 	printf("      -o=order (Order of polynoms).\n");
 	printf("      -b=block_size (Block size).\n");
@@ -585,13 +585,13 @@ int main(int argc, char **argv)
     unsigned int dimA = 16 * block_size;
     unsigned int dimB = 16 * block_size;
 
-    // number of terms of polynom A
+    // number of terms of polynomial A
     if (checkCmdLineFlag(argc, (const char **)argv, "nA"))
     {
         dimA = getCmdLineArgumentInt(argc, (const char **)argv, "nA");
     }
 
-    // number of terms of polynom B
+    // number of terms of polynomial B
     if (checkCmdLineFlag(argc, (const char **)argv, "nB"))
     {
         dimB = getCmdLineArgumentInt(argc, (const char **)argv, "nB");
@@ -626,7 +626,7 @@ int main(int argc, char **argv)
        fB = fopen(value, "r"); 
     }
 
-    printf("PolynomA(%d), PolynomB(%d), Order = %d, Number of Variables = %d\n", dimA, dimB, order, nvars);
+    printf("PolynomialA(%d), PolynomialB(%d), Order = %d, Number of Variables = %d\n", dimA, dimB, order, nvars);
    
     int polynom_result = polynomMultiply(argc, argv, block_size, dimA, dimB, order, nvars, fA, fB);
    
