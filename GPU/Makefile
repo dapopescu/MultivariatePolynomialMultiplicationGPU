@@ -123,12 +123,8 @@ endif
 # Common includes and paths for CUDA
 INCLUDES      := -I. -I.. -I/home/dap53/NVIDIA_CUDA-7.0_Samples/common/inc
 
-#export CPLUS_INCLUDE_PATH=$CPLUS_INCLUDE_PATH:../libs/boost_1_53_0/include/
-
 # Target rules
 all: build
-
-#build: mapbeamline.so
 
 build: multpol
 
