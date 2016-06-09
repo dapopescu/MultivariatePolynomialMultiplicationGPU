@@ -1,5 +1,5 @@
 /**
- * Copyright 2013 Diana-Andreea Popescu, EPFL, Switzerland.  All rights reserved.
+ * Copyright 2013-2016 Diana-Andreea Popescu, University of Cambridge, UK.  All rights reserved.
  *
  */
 
